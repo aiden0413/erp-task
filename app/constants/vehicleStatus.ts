@@ -38,6 +38,7 @@ export const postEvidenceView: Record<TaxEvidenceStatus, StatusView> = {
   complete: { label: "완료", dot: color.green },
   incomplete: { label: "제출필요", dot: color.orange },
   not_applicable: { label: "해당없음", dot: color.red },
+  overdue: { label: "기한 초과", dot: color.red },
 };
 
 export function deadlineText(days: number | null): string | null {
