@@ -21,3 +21,4 @@
 <img width="1216" height="68" alt="녹화_2026_09_21_23_16_56_154" src="https://github.com/user-attachments/assets/522ea605-6e9d-4911-a273-683df8cfd149" />
 
 * **3-2. 기한 내 사후 증빙 미제출**: 해당 차량 선적을 승인한 직원 징계 및 패널티
+<img width="1216" height="65" alt="image" src="https://github.com/user-attachments/assets/727fa211-e478-4f92-a470-851c3c052db1" />
