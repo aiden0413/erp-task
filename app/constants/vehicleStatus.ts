@@ -24,6 +24,7 @@ export const taxEvidenceView: Record<TaxEvidenceStatus, StatusView> = {
   complete: { label: "완비", dot: color.green },
   incomplete: { label: "미비", dot: color.orange },
   not_applicable: { label: "해당없음", dot: color.red },
+  overdue: { label: "기한 초과", dot: color.red },
 };
 
 export const shipmentView: Record<ShipmentStatus, StatusView> = {

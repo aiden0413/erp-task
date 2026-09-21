@@ -4,7 +4,6 @@ import { ColumnFilter } from "@/app/components/ColumnFilter";
 import { StatusBadge } from "@/app/components/StatusBadge";
 import {
   deadlineText,
-  postEvidenceView,
   seizureTheftView,
   shipmentView,
   taxEvidenceView,
@@ -37,6 +36,7 @@ export const filterColumns = [
       { label: "완비", value: "complete" },
       { label: "미비", value: "incomplete" },
       { label: "해당없음", value: "not_applicable" },
+      { label: "기한 초과", value: "overdue" },
     ],
   },
   {

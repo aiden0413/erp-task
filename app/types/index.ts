@@ -2,7 +2,7 @@
 export type SeizureTheftStatus = "clear" | "blocked";
 
 /** 세무 증빙 */
-export type TaxEvidenceStatus = "complete" | "incomplete" | "not_applicable";
+export type TaxEvidenceStatus = "complete" | "incomplete" | "not_applicable" | "overdue";
 
 /** 선적 */
 export type ShipmentStatus = "approved" | "fast_track" | "hard_blocked";
