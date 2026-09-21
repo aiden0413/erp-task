@@ -1,0 +1,182 @@
+"use client";
+
+import { ColumnFilter } from "@/app/components/ColumnFilter";
+import { StatusBadge } from "@/app/components/StatusBadge";
+import {
+  deadlineText,
+  postEvidenceView,
+  seizureTheftView,
+  shipmentView,
+  taxEvidenceView,
+} from "@/app/constants/vehicleStatus";
+import type { Vehicle, Filters } from "@/app/types";
+
+interface VehicleTableProps {
+  vehicles: Vehicle[];
+  filteredVehicles: Vehicle[];
+  filters: Filters;
+  onFilterChange: (key: keyof Filters, value: string[]) => void;
+  onSelectVehicle: (vin: string) => void;
+  onSubmitEvidence: (vin: string) => void;
+  onOpenRegister: () => void;
+}
+
+export const filterColumns = [
+  {
+    key: "seizureTheftStatus" as const,
+    title: "압류·도난 여부",
+    options: [
+      { label: "정상", value: "clear" },
+      { label: "압류/도난", value: "blocked" },
+    ],
+  },
+  {
+    key: "taxEvidenceStatus" as const,
+    title: "세무 증빙 여부",
+    options: [
+      { label: "완비", value: "complete" },
+      { label: "미비", value: "incomplete" },
+      { label: "해당없음", value: "not_applicable" },
+    ],
+  },
+  {
+    key: "shipmentStatus" as const,
+    title: "선적 여부",
+    options: [
+      { label: "승인", value: "approved" },
+      { label: "조건부 선적", value: "fast_track" },
+      { label: "차단", value: "hard_blocked" },
+    ],
+  },
+  {
+    key: "taxEvidenceStatus" as const,
+    title: "사후 세무 증빙",
+    options: [
+      { label: "완료", value: "complete" },
+      { label: "제출필요", value: "incomplete" },
+      { label: "해당없음", value: "not_applicable" },
+    ],
+  },
+];
+
+export function VehicleTable({
+  vehicles,
+  filteredVehicles,
+  filters,
+  onFilterChange,
+  onSelectVehicle,
+  onSubmitEvidence,
+  onOpenRegister,
+}: VehicleTableProps) {
+  return (
+    <div className="w-full">
+      {/* 모던 ERP 스타일 카드 컨테이너 */}
+      <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
+        <table className="w-full table-fixed border-collapse text-left text-sm">
+          <colgroup>
+            <col className="w-[24%]" />
+            <col className="w-[19%]" />
+            <col className="w-[19%]" />
+            <col className="w-[19%]" />
+            <col className="w-[19%]" />
+          </colgroup>
+          <thead>
+            <tr className="border-b border-zinc-200 bg-zinc-50/75 text-xs font-semibold text-zinc-600">
+              <th className="px-4 py-3 align-middle">VIN</th>
+              {filterColumns.map((column, idx) => (
+                <th key={`${column.key}-${idx}`} className="px-4 py-3 align-middle font-medium">
+                  <div className="inline-flex items-center gap-1">
+                    {column.title}
+                    <ColumnFilter
+                      selectedValues={filters[column.key]}
+                      options={column.options}
+                      onChange={(newValues) => onFilterChange(column.key, newValues)}
+                    />
+                  </div>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-zinc-100 text-zinc-700">
+            {vehicles.length === 0 ? (
+              <tr>
+                <td colSpan={5} className="px-4 py-12 text-center text-zinc-400">
+                  테이블 하단 + 버튼으로 차량(VIN)을 등록하세요
+                </td>
+              </tr>
+            ) : filteredVehicles.length === 0 ? (
+              <tr>
+                <td colSpan={5} className="px-4 py-12 text-center text-zinc-400">
+                  조건에 맞는 차량이 없습니다
+                </td>
+              </tr>
+            ) : (
+              filteredVehicles.map((vehicle) => {
+                const seizure = seizureTheftView[vehicle.seizureTheftStatus];
+                const tax = taxEvidenceView[vehicle.taxEvidenceStatus];
+                const shipment = shipmentView[vehicle.shipmentStatus];
+                const deadline =
+                  vehicle.taxEvidenceStatus === "incomplete"
+                    ? deadlineText(vehicle.postEvidenceDaysRemaining)
+                    : null;
+
+                return (
+                  <tr
+                    key={vehicle.vin}
+                    onClick={() => onSelectVehicle(vehicle.vin)}
+                    className="cursor-pointer transition-colors hover:bg-zinc-50/80"
+                  >
+                    <td className="px-4 py-3.5 font-mono text-xs font-medium text-zinc-900">
+                      {vehicle.vin}
+                    </td>
+                    <td className="px-4 py-3.5">
+                      <StatusBadge label={seizure.label} dot={seizure.dot} />
+                    </td>
+                    <td className="px-4 py-3.5">
+                      <StatusBadge
+                        label={tax.label}
+                        dot={tax.dot}
+                        extra={deadline}
+                      />
+                    </td>
+                    <td className="px-4 py-3.5">
+                      <StatusBadge label={shipment.label} dot={shipment.dot} />
+                    </td>
+                    <td className="px-4 py-3.5">
+                      {vehicle.taxEvidenceStatus === "incomplete" ? (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onSubmitEvidence(vehicle.vin);
+                          }}
+                          className="inline-flex h-6 items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium bg-orange-500 text-white border border-orange-200 hover:bg-orange-100 hover:text-black transition-colors"
+                        >
+                          사후 증빙 제출 &gt;
+                        </button>
+                      ) : (
+                        <StatusBadge label={tax.label} dot={tax.dot} />
+                      )}
+                    </td>
+                  </tr>
+                );
+              })
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {/* 하단 등록 버튼 영역 */}
+      <div className="mt-4 flex justify-center">
+        <button
+          type="button"
+          onClick={onOpenRegister}
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 bg-white text-xl text-zinc-700 shadow-sm transition-all hover:bg-zinc-50 hover:border-zinc-300 hover:scale-105 active:scale-95"
+          aria-label="VIN 추가"
+        >
+          +
+        </button>
+      </div>
+    </div>
+  );
+}
