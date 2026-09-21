@@ -18,6 +18,6 @@
 ### 3. 사후 관리
 > 세무 증빙 미비(조건부 선적) 차량들에 대해 진행.
 * **3-1. 기한 내 사후 증빙 제출 완료**: 정상 처리 및 종결합니다.
-https://github.com/user-attachments/assets/05743db7-6f88-42ef-a807-d2e8f74a8ee6
+<img width="1216" height="68" alt="녹화_2026_09_21_23_16_56_154" src="https://github.com/user-attachments/assets/522ea605-6e9d-4911-a273-683df8cfd149" />
 
 * **3-2. 기한 내 사후 증빙 미제출**: 해당 차량 선적을 승인한 직원 징계 및 패널티
