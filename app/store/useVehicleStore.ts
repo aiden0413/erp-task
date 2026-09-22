@@ -34,8 +34,8 @@ export const filterColumns: FilterColumn[] = [
     key: "afterTaxEvidenceStatus",
     title: "사후 세무 증빙",
     options: [
-      { label: "완료", value: "complete" },
-      { label: "미비", value: "incomplete" },
+      { label: "완비", value: "complete" },
+      { label: "제출 필요", value: "incomplete" },
       { label: "해당없음", value: "not_applicable" },
       { label: "기한 초과", value: "overdue" },
     ],
