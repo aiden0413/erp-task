@@ -35,7 +35,7 @@
 
 ### 필터링을 통해 선적 여부, 사후 세무 증빙만 필요한 차량 등을 확인가능
 * 선적 승인, 조건부 선적만 확인
-<img width="1235" height="531" alt="image" src="https://github.com/user-attachments/assets/d506a47d-97c2-400f-9c21-b5c9fe1ec708" />
+<img width="1225" height="530" alt="image" src="https://github.com/user-attachments/assets/d92a5cc0-8804-4f24-835f-f8608b6cf601" />
 <br><br>
 
 * 사후 증빙 제출이 필요한 항목만 확인
