@@ -33,8 +33,16 @@
 <br><br><br><br>
 
 
-필터링을 통해 선적 여부, 사후 세무 증빙만 필요한 차량 등을 확인가능
+### 필터링을 통해 선적 여부, 사후 세무 증빙만 필요한 차량 등을 확인가능
+* 선적 승인, 조건부 선적만 확인
+<img width="1225" height="530" alt="image" src="https://github.com/user-attachments/assets/d92a5cc0-8804-4f24-835f-f8608b6cf601" />
+<br><br>
 
-<img width="1235" height="531" alt="image" src="https://github.com/user-attachments/assets/d506a47d-97c2-400f-9c21-b5c9fe1ec708" />
+* 사후 증빙 제출이 필요한 항목만 확인
+<img width="1222" height="337" alt="image" src="https://github.com/user-attachments/assets/8440b7fa-a1c2-4952-8a9d-abb61998e9d0" />
+<br><br>
+
+* 사후 세무 증빙 기한이 초과된 항목만 확인
+<img width="1225" height="333" alt="image" src="https://github.com/user-attachments/assets/335ae89d-a972-44bb-9280-b299a39d8358" />
 
 
