@@ -1,4 +1,5 @@
 # 스마트 중고차 수출 ERP 시스템
+## 링크 URL [https://erp-task-seven.vercel.app/](https://erp-task-seven.vercel.app/)
 
 ## 핵심 업무 처리 플로우
 
@@ -22,3 +23,11 @@
 
 * **3-2. 기한 내 사후 증빙 미제출**: 해당 차량 선적을 승인한 직원 징계 및 패널티
 <img width="1216" height="65" alt="image" src="https://github.com/user-attachments/assets/727fa211-e478-4f92-a470-851c3c052db1" />
+
+
+필터링을 통해 선적 여부, 사후 세무 증빙만 필요한 차량 등을 확인가능
+
+<img width="1235" height="531" alt="image" src="https://github.com/user-attachments/assets/d506a47d-97c2-400f-9c21-b5c9fe1ec708" />
+<img width="1232" height="337" alt="image" src="https://github.com/user-attachments/assets/ef8889e0-7038-45e6-b1fa-60a3b0b0a767" />
+
+
