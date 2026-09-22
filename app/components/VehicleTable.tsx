@@ -11,7 +11,7 @@ import {
 import { useVehicleStore, filterColumns } from "@/app/store/useVehicleStore";
 
 export function VehicleTable() {
-  const { vehicles, filters, setFilter, setSelectedVin, submitEvidence, setIsRegisterOpen, getFilteredVehicles } =
+  const { vehicles, setSelectedVin, submitEvidence, setIsRegisterOpen, getFilteredVehicles } =
     useVehicleStore();
 
   const filteredVehicles = getFilteredVehicles();
@@ -29,15 +29,16 @@ export function VehicleTable() {
           </colgroup>
           <thead>
             <tr className="border-b border-zinc-200 bg-zinc-50/75 text-xs font-semibold text-zinc-600">
-              <th className="p-4 align-middle">VIN</th>
+              <th className="p-4 align-middle">
+                VIN ( {filteredVehicles.length}건 )
+              </th>
               {filterColumns.map((column, idx) => (
                 <th key={`${column.key}-${idx}`} className="p-4 align-middle font-medium">
                   <div className="inline-flex items-center justify-between gap-1">
                     {column.title}
                     <ColumnFilter
-                      selectedValues={filters[column.key]}
+                      columnKey={column.key}
                       options={column.options}
-                      onChange={(newValues) => setFilter(column.key, newValues)}
                       align={idx === filterColumns.length - 1 ? "right" : "left"}
                     />
                   </div>

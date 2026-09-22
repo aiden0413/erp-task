@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import { Modal } from "@/app/components/common/Modal";
 import { lookupVehicle, mockVehicles } from "@/app/data/mockData";
 import { useVehicleStore } from "@/app/store/useVehicleStore";
@@ -18,6 +18,13 @@ export default function VinRegisterModal() {
 
   const [vinInput, setVinInput] = useState(nextVin);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isRegisterOpen) {
+      setVinInput(nextVin);
+      setError(null);
+    }
+  }, [isRegisterOpen, vehicles]);
 
   // 모달이 열릴 때 input 초기화
   const handleOpenChange = (isOpen: boolean) => {

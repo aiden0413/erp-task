@@ -55,6 +55,7 @@ interface VehicleStoreState {
   currentDate: string;
   isRegisterOpen: boolean;
   selectedVin: string | null;
+  sortOrder: "asc" | "desc" | null;
   
   // Actions
   setFilter: (key: keyof Filters, values: string[]) => void;
@@ -66,6 +67,7 @@ interface VehicleStoreState {
   setIsRegisterOpen: (isOpen: boolean) => void;
   setSelectedVin: (vin: string | null) => void;
   getFilteredVehicles: () => Vehicle[];
+  toggleSortOrder: () => void;
 }
 
 export const useVehicleStore = create<VehicleStoreState>((set, get) => ({
@@ -74,6 +76,7 @@ export const useVehicleStore = create<VehicleStoreState>((set, get) => ({
   currentDate: "2026-09-22",
   isRegisterOpen: false,
   selectedVin: null,
+  sortOrder: null,
 
   setFilter: (key, values) =>
     set((state) => ({
@@ -132,8 +135,9 @@ export const useVehicleStore = create<VehicleStoreState>((set, get) => ({
   setSelectedVin: (vin) => set({ selectedVin: vin }),
 
   getFilteredVehicles: () => {
-    const { vehicles, filters } = get();
-    return vehicles.filter((v) => {
+    const { vehicles, filters, sortOrder } = get();
+
+    const filtered = vehicles.filter((v) => {
       const matchSeizure =
         filters.seizureTheftStatus.length === 0 ||
         filters.seizureTheftStatus.includes(v.seizureTheftStatus);
@@ -151,6 +155,24 @@ export const useVehicleStore = create<VehicleStoreState>((set, get) => ({
         filters.afterTaxEvidenceStatus.includes(v.afterTaxEvidenceStatus);
 
       return matchSeizure && matchTax && matchShipment && matchAfterTax;
+    });
+
+    if (sortOrder !== null) {
+      filtered.sort((a, b) => {
+        const daysA = a.postEvidenceDaysRemaining ?? 999;
+        const daysB = b.postEvidenceDaysRemaining ?? 999;
+        return sortOrder === "asc" ? daysA - daysB : daysB - daysA;
+      });
+    }
+
+    return filtered;
+  },
+
+  toggleSortOrder: () => {
+    set((state) => {
+      if (state.sortOrder === null) return { sortOrder: "asc" };
+      if (state.sortOrder === "asc") return { sortOrder: "desc" };
+      return { sortOrder: null };
     });
   },
 }));
