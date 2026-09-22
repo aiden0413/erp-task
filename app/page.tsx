@@ -1,22 +1,76 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import VehicleDetailModal from "@/app/components/VehicleDetailModal";
 import VinRegisterModal from "@/app/components/VinRegisterModal";
-import { VehicleTable } from "@/app/components/VehicleTable";
-import { SimulationBar } from "@/app/components/SimulationBar";
+import VehicleTable from "@/app/components/VehicleTable";
+import SimulationBar from "@/app/components/SimulationBar";
+import TaxDeadlineBanner from "@/app/components/TaxDeadlineBanner";
+import { useVehicleStore } from "@/app/store/useVehicleStore";
 
 export default function Home() {
-  return (
-    <main className="mx-auto flex min-h-full w-full max-w-5xl flex-col px-6 py-10 gap-4">
-      {/* 시뮬레이션 컨트롤바 컴포넌트 */}
-      <SimulationBar />
+    const vehicles = useVehicleStore((state) => state.vehicles);
+    const hasTarget = vehicles.some((v) => {
+        if (v.afterTaxEvidenceStatus === "complete" || v.afterTaxEvidenceStatus === "not_applicable") {
+            return false;
+        }
+        return (
+            v.afterTaxEvidenceStatus === "overdue" ||
+            (v.postEvidenceDaysRemaining !== null && v.postEvidenceDaysRemaining <= 0) ||
+            (v.postEvidenceDaysRemaining !== null && v.postEvidenceDaysRemaining > 0 && v.postEvidenceDaysRemaining <= 3)
+        );
+    });
 
-      {/* 테이블 컴포넌트 */}
-      <VehicleTable />
+    const [isRendered, setIsRendered] = useState(hasTarget);
+    const [isAnimating, setIsAnimating] = useState(hasTarget);
 
-      {/* 등록 모달, 상세보기 모달 */}
-      <VinRegisterModal />
-      <VehicleDetailModal />
-    </main>
-  );
+    useEffect(() => {
+        if (hasTarget) {
+            setIsRendered(true);
+            const timer = setTimeout(() => setIsAnimating(true), 20);
+            return () => clearTimeout(timer);
+        } else {
+            setIsAnimating(false);
+            const timer = setTimeout(() => {
+                setIsRendered(false);
+            }, 400);
+            return () => clearTimeout(timer);
+        }
+    }, [hasTarget]);
+
+    return (
+        <div className="w-full">
+            <div
+                style={{
+                    maxHeight: isAnimating ? "80px" : "0px",
+                    transition: "max-height 0.4s ease-in-out",
+                    overflow: "hidden",
+                }}
+            >
+                <div
+                    style={{
+                        transform: isAnimating ? "translateY(0)" : "translateY(-100%)",
+                        transition: "transform 0.4s ease-in-out",
+                    }}
+                >
+                    {/* 상단 배너 */}
+                    {isRendered && <TaxDeadlineBanner />}
+                </div>
+            </div>
+
+            <main>
+                <div className="mx-auto flex min-h-full w-full max-w-5xl flex-col p-6 gap-4">
+                    {/* 시뮬레이션 바 */}
+                    <SimulationBar />
+                    {/* 테이블 */}
+                    <VehicleTable />
+                </div>
+                
+                {/* VIN 등록 모달 */}
+                <VinRegisterModal />
+                {/* 테이블 상세보기 모달 */}
+                <VehicleDetailModal />
+            </main>
+        </div>
+    );
 }

@@ -23,13 +23,6 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
       >
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-zinc-900">{title}</h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="text-zinc-400 hover:text-zinc-600 text-sm cursor-pointer"
-          >
-            ✕
-          </button>
         </div>
         {children}
       </div>

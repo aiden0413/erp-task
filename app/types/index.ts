@@ -11,28 +11,28 @@ export type ShipmentStatus = "approved" | "fast_track" | "hard_blocked";
 export type AfterTaxEvidenceStatus = "complete" | "incomplete" | "not_applicable" | "overdue";
 
 export interface Vehicle {
-  vin: string;
-  seizureTheftStatus: SeizureTheftStatus;
-  taxEvidenceStatus: TaxEvidenceStatus;
-  shipmentStatus: ShipmentStatus;
-  postEvidenceDaysRemaining: number | null;
-  afterTaxEvidenceStatus: AfterTaxEvidenceStatus;
+    vin: string;
+    seizureTheftStatus: SeizureTheftStatus;
+    taxEvidenceStatus: TaxEvidenceStatus;
+    shipmentStatus: ShipmentStatus;
+    postEvidenceDaysRemaining: number | null;
+    afterTaxEvidenceStatus: AfterTaxEvidenceStatus;
 }
 
 export type Filters = {
-  seizureTheftStatus: string[];
-  taxEvidenceStatus: string[];
-  shipmentStatus: string[];
-  afterTaxEvidenceStatus: string[];
+    seizureTheftStatus: string[];
+    taxEvidenceStatus: string[];
+    shipmentStatus: string[];
+    afterTaxEvidenceStatus: string[];
 };
 
 export interface ColumnOption {
-  label: string;
-  value: string;
+    label: string;
+    value: string;
 }
 
 export interface FilterColumn {
-  key: keyof Filters;
-  title: string;
-  options: ColumnOption[];
+    key: keyof Filters;
+    title: string;
+    options: ColumnOption[];
 }
