@@ -33,14 +33,6 @@ export const shipmentView: Record<ShipmentStatus, StatusView> = {
   hard_blocked: { label: "차단", dot: color.red },
 };
 
-/** 사후 증빙 컬럼용 (taxEvidenceStatus와 동일 키, 표시 문구만 다름) */
-export const postEvidenceView: Record<TaxEvidenceStatus, StatusView> = {
-  complete: { label: "완료", dot: color.green },
-  incomplete: { label: "제출필요", dot: color.orange },
-  not_applicable: { label: "해당없음", dot: color.red },
-  overdue: { label: "기한 초과", dot: color.red },
-};
-
 export function deadlineText(days: number | null): string | null {
   if (days === null) return null;
   if (days <= 0) return days === 0 ? "D-Day" : `D+${Math.abs(days)} 초과`;

@@ -25,3 +25,14 @@ export type Filters = {
   shipmentStatus: string[];
   afterTaxEvidenceStatus: string[];
 };
+
+export interface ColumnOption {
+  label: string;
+  value: string;
+}
+
+export interface FilterColumn {
+  key: keyof Filters;
+  title: string;
+  options: ColumnOption[];
+}

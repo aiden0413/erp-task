@@ -8,70 +8,16 @@ import {
   shipmentView,
   taxEvidenceView,
 } from "@/app/constants/vehicleStatus";
-import type { Vehicle, Filters } from "@/app/types";
+import { useVehicleStore, filterColumns } from "@/app/store/useVehicleStore";
 
-interface VehicleTableProps {
-  vehicles: Vehicle[];
-  filteredVehicles: Vehicle[];
-  filters: Filters;
-  onFilterChange: (key: keyof Filters, value: string[]) => void;
-  onSelectVehicle: (vin: string) => void;
-  onSubmitEvidence: (vin: string) => void;
-  onOpenRegister: () => void;
-}
+export function VehicleTable() {
+  const { vehicles, filters, setFilter, setSelectedVin, submitEvidence, setIsRegisterOpen, getFilteredVehicles } =
+    useVehicleStore();
 
-export const filterColumns = [
-  {
-    key: "seizureTheftStatus" as const,
-    title: "압류·도난 여부",
-    options: [
-      { label: "정상", value: "clear" },
-      { label: "압류/도난", value: "blocked" },
-    ],
-  },
-  {
-    key: "taxEvidenceStatus" as const,
-    title: "세무 증빙 여부",
-    options: [
-      { label: "완비", value: "complete" },
-      { label: "미비", value: "incomplete" },
-      { label: "해당없음", value: "not_applicable" },
-      { label: "기한 초과", value: "overdue" },
-    ],
-  },
-  {
-    key: "shipmentStatus" as const,
-    title: "선적 여부",
-    options: [
-      { label: "승인", value: "approved" },
-      { label: "조건부 선적", value: "fast_track" },
-      { label: "차단", value: "hard_blocked" },
-    ],
-  },
-  {
-    key: "afterTaxEvidenceStatus" as const,
-    title: "사후 세무 증빙",
-    options: [
-      { label: "완료", value: "complete" },
-      { label: "제출필요", value: "incomplete" },
-      { label: "해당없음", value: "not_applicable" },
-      { label: "기한 초과", value: "overdue" },
-    ],
-  },
-];
+  const filteredVehicles = getFilteredVehicles();
 
-export function VehicleTable({
-  vehicles,
-  filteredVehicles,
-  filters,
-  onFilterChange,
-  onSelectVehicle,
-  onSubmitEvidence,
-  onOpenRegister,
-}: VehicleTableProps) {
   return (
     <div className="w-full">
-      {/* 모던 ERP 스타일 카드 컨테이너 */}
       <div className="rounded-xl border border-zinc-200 bg-white shadow-sm">
         <table className="w-full table-fixed border-collapse text-left text-sm">
           <colgroup>
@@ -91,7 +37,7 @@ export function VehicleTable({
                     <ColumnFilter
                       selectedValues={filters[column.key]}
                       options={column.options}
-                      onChange={(newValues) => onFilterChange(column.key, newValues)}
+                      onChange={(newValues) => setFilter(column.key, newValues)}
                       align={idx === filterColumns.length - 1 ? "right" : "left"}
                     />
                   </div>
@@ -129,11 +75,9 @@ export function VehicleTable({
                 return (
                   <tr
                     key={vehicle.vin}
-                    onClick={() => onSelectVehicle(vehicle.vin)}
+                    onClick={() => setSelectedVin(vehicle.vin)}
                     className={`cursor-pointer transition-colors ${
-                      isRisk
-                        ? "bg-red-100/90 hover:bg-red-200/90"
-                        : "hover:bg-zinc-50/80"
+                      isRisk ? "bg-red-100/90 hover:bg-red-200/90" : "hover:bg-zinc-50/80"
                     }`}
                   >
                     <td className="px-4 py-3.5 font-mono text-xs font-medium text-zinc-900">
@@ -145,11 +89,7 @@ export function VehicleTable({
                       <StatusBadge label={seizure.label} dot={seizure.dot} />
                     </td>
                     <td className="px-4 py-3.5">
-                      <StatusBadge
-                        label={tax.label}
-                        dot={tax.dot}
-                        extra={deadline}
-                      />
+                      <StatusBadge label={tax.label} dot={tax.dot} extra={deadline} />
                     </td>
                     <td className="px-4 py-3.5">
                       <StatusBadge label={shipment.label} dot={shipment.dot} />
@@ -160,7 +100,7 @@ export function VehicleTable({
                           type="button"
                           onClick={(e) => {
                             e.stopPropagation();
-                            onSubmitEvidence(vehicle.vin);
+                            submitEvidence(vehicle.vin);
                           }}
                           className="inline-flex h-6 items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium bg-orange-500 text-white border border-orange-200 hover:bg-orange-100 hover:text-black transition-colors"
                         >
@@ -178,11 +118,10 @@ export function VehicleTable({
         </table>
       </div>
 
-      {/* 하단 등록 버튼 영역 */}
       <div className="mt-4 flex justify-center">
         <button
           type="button"
-          onClick={onOpenRegister}
+          onClick={() => setIsRegisterOpen(true)}
           className="flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 bg-white text-xl text-zinc-700 shadow-sm transition-all hover:bg-zinc-50 hover:border-zinc-300 hover:scale-105 active:scale-95"
           aria-label="VIN 추가"
         >
