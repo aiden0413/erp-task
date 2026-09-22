@@ -7,6 +7,7 @@ export const mockVehicles: Vehicle[] = [
     taxEvidenceStatus: "incomplete",
     shipmentStatus: "fast_track",
     postEvidenceDaysRemaining: 7,
+    afterTaxEvidenceStatus: "incomplete",
   },
   {
     vin: "WVWZZZ1JZXW000333",
@@ -14,6 +15,7 @@ export const mockVehicles: Vehicle[] = [
     taxEvidenceStatus: "not_applicable",
     shipmentStatus: "hard_blocked",
     postEvidenceDaysRemaining: null,
+    afterTaxEvidenceStatus: "not_applicable",
   },
   {
     vin: "KNADN512AB1234567",
@@ -21,6 +23,7 @@ export const mockVehicles: Vehicle[] = [
     taxEvidenceStatus: "complete",
     shipmentStatus: "approved",
     postEvidenceDaysRemaining: null,
+    afterTaxEvidenceStatus: "complete",
   },
   {
     vin: "KNHXX00XXXX000002",
@@ -28,6 +31,7 @@ export const mockVehicles: Vehicle[] = [
     taxEvidenceStatus: "incomplete",
     shipmentStatus: "fast_track",
     postEvidenceDaysRemaining: 7,
+    afterTaxEvidenceStatus: "incomplete",
   },
   {
     vin: "KM8J3CA46JU000555",
@@ -35,6 +39,7 @@ export const mockVehicles: Vehicle[] = [
     taxEvidenceStatus: "complete",
     shipmentStatus: "approved",
     postEvidenceDaysRemaining: null,
+    afterTaxEvidenceStatus: "complete",
   },
   {
     vin: "JM1BL1SF5A1000444",
@@ -42,6 +47,7 @@ export const mockVehicles: Vehicle[] = [
     taxEvidenceStatus: "not_applicable",
     shipmentStatus: "hard_blocked",
     postEvidenceDaysRemaining: null,
+    afterTaxEvidenceStatus: "not_applicable",
   },
   {
     vin: "KNAFU411BA5000666",
@@ -49,6 +55,7 @@ export const mockVehicles: Vehicle[] = [
     taxEvidenceStatus: "incomplete",
     shipmentStatus: "fast_track",
     postEvidenceDaysRemaining: 7,
+    afterTaxEvidenceStatus: "incomplete",
   },
   {
     vin: "5YJ3E1EA7KF000777",
@@ -56,6 +63,7 @@ export const mockVehicles: Vehicle[] = [
     taxEvidenceStatus: "incomplete",
     shipmentStatus: "fast_track",
     postEvidenceDaysRemaining: 7,
+    afterTaxEvidenceStatus: "incomplete",
   },
   {
     vin: "KMHCT41DBAU000888",
@@ -63,6 +71,7 @@ export const mockVehicles: Vehicle[] = [
     taxEvidenceStatus: "not_applicable",
     shipmentStatus: "hard_blocked",
     postEvidenceDaysRemaining: null,
+    afterTaxEvidenceStatus: "not_applicable",
   },
   {
     vin: "KNAGN412BFA000999",
@@ -70,6 +79,7 @@ export const mockVehicles: Vehicle[] = [
     taxEvidenceStatus: "complete",
     shipmentStatus: "approved",
     postEvidenceDaysRemaining: null,
+    afterTaxEvidenceStatus: "complete",
   },
 ];
 

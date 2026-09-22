@@ -45,6 +45,7 @@ export const initialFilters: Filters = {
   seizureTheftStatus: [],
   taxEvidenceStatus: [],
   shipmentStatus: [],
+  afterTaxEvidenceStatus: [],
 };
 
 export function filterVehicles(vehicles: Vehicle[], filters: Filters): Vehicle[] {
@@ -64,6 +65,11 @@ export function filterVehicles(vehicles: Vehicle[], filters: Filters): Vehicle[]
       filters.shipmentStatus.length === 0 ||
       filters.shipmentStatus.includes(v.shipmentStatus);
 
-    return matchSeizure && matchTax && matchShipment;
+    // 4. 사후 세무 증빙 필터 체크
+    const matchAfterTax =
+      filters.afterTaxEvidenceStatus.length === 0 ||
+      filters.afterTaxEvidenceStatus.includes(v.afterTaxEvidenceStatus);
+
+    return matchSeizure && matchTax && matchShipment && matchAfterTax;
   });
 }

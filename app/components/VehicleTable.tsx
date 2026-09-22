@@ -49,12 +49,13 @@ export const filterColumns = [
     ],
   },
   {
-    key: "taxEvidenceStatus" as const,
+    key: "afterTaxEvidenceStatus" as const,
     title: "사후 세무 증빙",
     options: [
       { label: "완료", value: "complete" },
       { label: "제출필요", value: "incomplete" },
       { label: "해당없음", value: "not_applicable" },
+      { label: "기한 초과", value: "overdue" },
     ],
   },
 ];
@@ -71,7 +72,7 @@ export function VehicleTable({
   return (
     <div className="w-full">
       {/* 모던 ERP 스타일 카드 컨테이너 */}
-      <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
+      <div className="rounded-xl border border-zinc-200 bg-white shadow-sm">
         <table className="w-full table-fixed border-collapse text-left text-sm">
           <colgroup>
             <col className="w-[24%]" />
@@ -82,15 +83,16 @@ export function VehicleTable({
           </colgroup>
           <thead>
             <tr className="border-b border-zinc-200 bg-zinc-50/75 text-xs font-semibold text-zinc-600">
-              <th className="px-4 py-3 align-middle">VIN</th>
+              <th className="p-4 align-middle">VIN</th>
               {filterColumns.map((column, idx) => (
-                <th key={`${column.key}-${idx}`} className="px-4 py-3 align-middle font-medium">
-                  <div className="inline-flex items-center gap-1">
+                <th key={`${column.key}-${idx}`} className="p-4 align-middle font-medium">
+                  <div className="inline-flex items-center justify-between gap-1">
                     {column.title}
                     <ColumnFilter
                       selectedValues={filters[column.key]}
                       options={column.options}
                       onChange={(newValues) => onFilterChange(column.key, newValues)}
+                      align={idx === filterColumns.length - 1 ? "right" : "left"}
                     />
                   </div>
                 </th>
@@ -120,14 +122,24 @@ export function VehicleTable({
                     ? deadlineText(vehicle.postEvidenceDaysRemaining)
                     : null;
 
+                const isRisk =
+                  vehicle.seizureTheftStatus === "blocked" ||
+                  vehicle.taxEvidenceStatus === "overdue";
+
                 return (
                   <tr
                     key={vehicle.vin}
                     onClick={() => onSelectVehicle(vehicle.vin)}
-                    className="cursor-pointer transition-colors hover:bg-zinc-50/80"
+                    className={`cursor-pointer transition-colors ${
+                      isRisk
+                        ? "bg-red-100/90 hover:bg-red-200/90"
+                        : "hover:bg-zinc-50/80"
+                    }`}
                   >
                     <td className="px-4 py-3.5 font-mono text-xs font-medium text-zinc-900">
-                      {vehicle.vin}
+                      <span className={isRisk ? "font-bold text-red-900" : ""}>
+                        {vehicle.vin}
+                      </span>
                     </td>
                     <td className="px-4 py-3.5">
                       <StatusBadge label={seizure.label} dot={seizure.dot} />
