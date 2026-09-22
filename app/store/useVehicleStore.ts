@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { Vehicle, Filters, FilterColumn } from "@/app/types";
+import type { Vehicle, Filters, FilterColumn, TaxEvidenceStatus, } from "@/app/types";
 
 export const filterColumns: FilterColumn[] = [
     {
@@ -15,7 +15,7 @@ export const filterColumns: FilterColumn[] = [
         title: "세무 증빙 여부",
         options: [
             { label: "완비", value: "complete" },
-            { label: "미비", value: "incomplete" },
+            { label: "사후 증빙 제출", value: "incomplete" },
             { label: "해당없음", value: "not_applicable" },
             { label: "기한 초과", value: "overdue" },
         ],
@@ -29,23 +29,12 @@ export const filterColumns: FilterColumn[] = [
             { label: "차단", value: "hard_blocked" },
         ],
     },
-    {
-        key: "afterTaxEvidenceStatus",
-        title: "사후 세무 증빙",
-        options: [
-            { label: "완비", value: "complete" },
-            { label: "제출 필요", value: "incomplete" },
-            { label: "해당없음", value: "not_applicable" },
-            { label: "기한 초과", value: "overdue" },
-        ],
-    },
 ];
 
 export const initialFilters: Filters = {
     seizureTheftStatus: [],
     taxEvidenceStatus: [],
     shipmentStatus: [],
-    afterTaxEvidenceStatus: [],
 };
 
 interface VehicleStoreState {
@@ -123,8 +112,7 @@ export const useVehicleStore = create<VehicleStoreState>((set, get) => ({
                 return {
                     ...v,
                     postEvidenceDaysRemaining: nextDays,
-                    taxEvidenceStatus: (isOverdue ? "overdue" : v.taxEvidenceStatus) as any,
-                    shipmentStatus: (isOverdue ? "hard_blocked" : v.shipmentStatus) as any,
+                    taxEvidenceStatus: (isOverdue ? "overdue" : v.taxEvidenceStatus) as TaxEvidenceStatus,
                 };
             });
 
@@ -150,20 +138,11 @@ export const useVehicleStore = create<VehicleStoreState>((set, get) => ({
                 filters.shipmentStatus.length === 0 ||
                 filters.shipmentStatus.includes(v.shipmentStatus);
 
-            const matchAfterTax =
-                filters.afterTaxEvidenceStatus.length === 0 ||
-                filters.afterTaxEvidenceStatus.includes(v.afterTaxEvidenceStatus);
-
-            const baseMatch = matchSeizure && matchTax && matchShipment && matchAfterTax;
+            const baseMatch = matchSeizure && matchTax && matchShipment;
             if (!baseMatch) return false;
 
             if (onlyTarget) {
-                if (v.afterTaxEvidenceStatus === "complete" || v.afterTaxEvidenceStatus === "not_applicable") {
-                    return false;
-                }
-                const isOverdue =
-                    v.afterTaxEvidenceStatus === "overdue" ||
-                    (v.postEvidenceDaysRemaining !== null && v.postEvidenceDaysRemaining <= 0);
+                 const isOverdue = (v.postEvidenceDaysRemaining !== null && v.postEvidenceDaysRemaining <= 0);
                 const isUrgent =
                     v.postEvidenceDaysRemaining !== null &&
                     v.postEvidenceDaysRemaining > 0 &&

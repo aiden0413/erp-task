@@ -9,23 +9,16 @@ export default function TaxDeadlineBanner() {
 
     // 기한 초과
     const overdueVehicles = vehicles.filter((v) => {
-        if (v.afterTaxEvidenceStatus === "complete" || v.afterTaxEvidenceStatus === "not_applicable") {
-            return false;
-        }
         return (
-            v.afterTaxEvidenceStatus === "overdue" ||
-            (v.postEvidenceDaysRemaining !== null && v.postEvidenceDaysRemaining <= 0)
+            (v.postEvidenceDaysRemaining !== null && v.postEvidenceDaysRemaining < 0)
         );
     });
 
     // 3일 이내 임박
     const urgentVehicles = vehicles.filter((v) => {
-        if (v.afterTaxEvidenceStatus === "complete" || v.afterTaxEvidenceStatus === "not_applicable") {
-            return false;
-        }
         return (
             v.postEvidenceDaysRemaining !== null &&
-            v.postEvidenceDaysRemaining > 0 &&
+            v.postEvidenceDaysRemaining >= 0 &&
             v.postEvidenceDaysRemaining <= 3
         );
     });

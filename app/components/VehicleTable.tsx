@@ -21,11 +21,10 @@ export default function VehicleTable() {
             <div className="rounded-xl border border-zinc-200 bg-white shadow-sm">
                 <table className="w-full table-fixed border-collapse text-left text-sm">
                     <colgroup>
-                        <col className="w-[24%]" />
-                        <col className="w-[19%]" />
-                        <col className="w-[19%]" />
-                        <col className="w-[19%]" />
-                        <col className="w-[19%]" />
+                        <col className="w-[22%]" />
+                        <col className="w-[22%]" />
+                        <col className="w-[31%]" />
+                        <col className="w-[25%]" />
                     </colgroup>
                     <thead>
                         <tr className="border-b border-zinc-200 bg-zinc-50/75 text-xs font-semibold text-zinc-600">
@@ -88,13 +87,8 @@ export default function VehicleTable() {
                                         <td className="px-4 py-3.5">
                                             <StatusBadge label={seizure.label} dot={seizure.dot} />
                                         </td>
-                                        <td className="px-4 py-3.5">
+                                        <td className="px-4 py-3.5 flex items-center justify-left gap-2">
                                             <StatusBadge label={tax.label} dot={tax.dot} extra={deadline} />
-                                        </td>
-                                        <td className="px-4 py-3.5">
-                                            <StatusBadge label={shipment.label} dot={shipment.dot} />
-                                        </td>
-                                        <td className="px-4 py-3.5">
                                             {vehicle.taxEvidenceStatus === "incomplete" ? (
                                                 <button
                                                     type="button"
@@ -106,9 +100,11 @@ export default function VehicleTable() {
                                                 >
                                                     사후 증빙 제출 &gt;
                                                 </button>
-                                            ) : (
-                                                <StatusBadge label={tax.label} dot={tax.dot} />
-                                            )}
+                                            ) : null
+                                            }
+                                        </td>
+                                        <td className="px-4 py-3.5">
+                                            <StatusBadge label={shipment.label} dot={shipment.dot} />
                                         </td>
                                     </tr>
                                 );

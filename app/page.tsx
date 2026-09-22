@@ -11,11 +11,7 @@ import { useVehicleStore } from "@/app/store/useVehicleStore";
 export default function Home() {
     const vehicles = useVehicleStore((state) => state.vehicles);
     const hasTarget = vehicles.some((v) => {
-        if (v.afterTaxEvidenceStatus === "complete" || v.afterTaxEvidenceStatus === "not_applicable") {
-            return false;
-        }
         return (
-            v.afterTaxEvidenceStatus === "overdue" ||
             (v.postEvidenceDaysRemaining !== null && v.postEvidenceDaysRemaining <= 0) ||
             (v.postEvidenceDaysRemaining !== null && v.postEvidenceDaysRemaining > 0 && v.postEvidenceDaysRemaining <= 3)
         );
