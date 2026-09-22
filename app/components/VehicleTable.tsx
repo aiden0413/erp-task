@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnFilter } from "@/app/components/ColumnFilter";
-import { StatusBadge } from "@/app/components/StatusBadge";
+import { StatusBadge } from "@/app/components/common/StatusBadge";
 import {
   deadlineText,
   seizureTheftView,
