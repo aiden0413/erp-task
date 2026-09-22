@@ -9,6 +9,7 @@ interface ModalProps {
   children: ReactNode;
 }
 
+// 공통 모달 
 export function Modal({ isOpen, onClose, title, children }: ModalProps) {
   if (!isOpen) return null;
 

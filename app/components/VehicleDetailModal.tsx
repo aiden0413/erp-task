@@ -17,7 +17,6 @@ export default function VehicleDetailModal() {
     const setSelectedVin = useVehicleStore((state) => state.setSelectedVin);
     const submitEvidence = useVehicleStore((state) => state.submitEvidence);
 
-    // 전체 차량(mock 포함)에서 상세 정보를 찾거나 등록된 차량에서 찾기
     const vehicle = vehicles.find((v) => v.vin === selectedVin) ?? mockVehicles.find((v) => v.vin === selectedVin) ?? null;
 
     if (!vehicle) return null;
@@ -30,6 +29,7 @@ export default function VehicleDetailModal() {
             ? deadlineText(vehicle.postEvidenceDaysRemaining)
             : null;
 
+    // 테이블 row 상세 정보 모달
     return (
         <Modal
             isOpen={Boolean(selectedVin)}

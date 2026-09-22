@@ -1,10 +1,10 @@
-// 압류·도난
+// 정상 | 압류·도난
 export type SeizureTheftStatus = "clear" | "blocked";
 
-// 세무 증빙
+// 완비 | 사후 증빙 제출 | 해당없음 | 기한 초과
 export type TaxEvidenceStatus = "complete" | "incomplete" | "not_applicable" | "overdue";
 
-// 선적 여부
+// 승인 | 조건부 선적 | 차단
 export type ShipmentStatus = "approved" | "fast_track" | "hard_blocked";
 
 export interface Vehicle {

@@ -9,6 +9,7 @@ interface ColumnFilterProps {
     align?: "left" | "right";
 }
 
+// 컬럼 필터, 정렬 버튼
 export function ColumnFilter({ columnKey, options, align = "left" }: ColumnFilterProps) {
     const [isOpen, setIsOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);

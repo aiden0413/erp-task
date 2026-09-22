@@ -1,3 +1,4 @@
+// 원형 상태 아이콘
 export function StatusBadge({
   label,
   dot,

@@ -2,6 +2,7 @@
 
 import { useVehicleStore } from "@/app/store/useVehicleStore";
 
+// 사후 세무 증빙 제출 기한 상단 배너
 export default function TaxDeadlineBanner() {
     const vehicles = useVehicleStore((state) => state.vehicles);
     const onlyTarget = useVehicleStore((state) => state.onlyTarget);

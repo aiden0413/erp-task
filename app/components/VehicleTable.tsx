@@ -10,6 +10,7 @@ import {
 } from "@/app/constants/vehicleStatus";
 import { useVehicleStore, filterColumns } from "@/app/store/useVehicleStore";
 
+// 차량 테이블
 export default function VehicleTable() {
     const { vehicles, setSelectedVin, submitEvidence, setIsRegisterOpen, getFilteredVehicles } =
         useVehicleStore();

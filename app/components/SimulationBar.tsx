@@ -2,6 +2,7 @@
 
 import { useVehicleStore } from "@/app/store/useVehicleStore";
 
+// 날짜 시뮬레이션 바
 export default function SimulationBar() {
     const currentDate = useVehicleStore((state) => state.currentDate);
     const advanceDay = useVehicleStore((state) => state.advanceDay);

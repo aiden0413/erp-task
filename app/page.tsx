@@ -64,15 +64,15 @@ export default function Home() {
 
             <main>
                 <div className="mx-auto flex min-h-full w-full max-w-5xl flex-col p-6 gap-4">
-                    {/* 시뮬레이션 바 */}
+                    {/* 날짜 시뮬레이션 바 */}
                     <SimulationBar />
-                    {/* 테이블 */}
+                    {/* 차량 테이블 */}
                     <VehicleTable />
                 </div>
                 
                 {/* VIN 등록 모달 */}
                 <VinRegisterModal />
-                {/* 테이블 상세보기 모달 */}
+                {/* 테이블 row 상세보기 모달 */}
                 <VehicleDetailModal />
             </main>
         </div>

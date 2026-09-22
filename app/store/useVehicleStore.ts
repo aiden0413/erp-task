@@ -38,25 +38,25 @@ export const initialFilters: Filters = {
 };
 
 interface VehicleStoreState {
-    vehicles: Vehicle[];
-    filters: Filters;
-    currentDate: string;
-    isRegisterOpen: boolean;
-    selectedVin: string | null;
-    sortOrder: "asc" | "desc" | null;
-    onlyTarget: boolean;
+    vehicles: Vehicle[]; // 차량 목록
+    filters: Filters; // 필터 옵션
+    currentDate: string; // 현재 날짜
+    isRegisterOpen: boolean; // VIN 등록 모달 열림 여부
+    selectedVin: string | null; // 선택된 차량 VIN
+    sortOrder: "asc" | "desc" | null; // D-Day 정렬 순서
+    onlyTarget: boolean; // 타겟 차량(세무증빙 기한초과, D-day 3일 이하)만 보기 여부
 
     // Actions
-    setFilter: (key: keyof Filters, values: string[]) => void;
-    resetFilters: () => void;
-    registerVehicles: (vehicles: Vehicle[]) => Vehicle[];
-    submitEvidence: (vin: string) => void;
-    advanceDay: () => void;
-    setIsRegisterOpen: (isOpen: boolean) => void;
-    setSelectedVin: (vin: string | null) => void;
-    getFilteredVehicles: () => Vehicle[];
-    toggleSortOrder: () => void;
-    setOnlyTarget: (val: boolean | ((prev: boolean) => boolean)) => void;
+    setFilter: (key: keyof Filters, values: string[]) => void; // 필터 설정
+    resetFilters: () => void; // 필터 초기화
+    registerVehicles: (vehicles: Vehicle[]) => Vehicle[]; // 차량 등록
+    submitEvidence: (vin: string) => void; // 세무 증빙 제출버튼
+    advanceDay: () => void; // 날짜 1일 증가
+    setIsRegisterOpen: (isOpen: boolean) => void; // VIN 등록 모달 열림 여부
+    setSelectedVin: (vin: string | null) => void; // 선택된 차량의 VIN (상세 보기 모달에 사용)
+    getFilteredVehicles: () => Vehicle[]; // 필터링된 차량 목록
+    toggleSortOrder: () => void; // 정렬 순서 토글 (기본, 오름차순, 내림차순 순으로 변경)
+    setOnlyTarget: (val: boolean | ((prev: boolean) => boolean)) => void; // 타겟 차량(세무증빙 기한초과, D-day 3일 이하)만 보기 설정
 }
 
 export const useVehicleStore = create<VehicleStoreState>((set, get) => ({

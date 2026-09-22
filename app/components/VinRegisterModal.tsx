@@ -36,6 +36,7 @@ export default function VinRegisterModal() {
     setBlockedVehicles(null);
   };
 
+  // 단일 등록 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -60,6 +61,7 @@ export default function VinRegisterModal() {
     }
   }
 
+  // 일괄 등록 
   function handleRegisterAll() {
     const remainingVehicles = mockVehicles.filter((v) => !added.has(v.vin));
     
@@ -87,7 +89,7 @@ export default function VinRegisterModal() {
       title={blockedVehicles ? "주의: 압류·도난 차량 등록됨" : "VIN 등록"}
     >
       {blockedVehicles ? (
-        /* 경고 모달 */
+        // 경고 모달
         <div className="flex flex-col gap-4 mt-2">
           <div className="rounded-lg bg-red-50 p-4 text-sm text-red-800 border border-red-200 flex flex-col gap-2">
             <p className="font-semibold">
@@ -110,7 +112,7 @@ export default function VinRegisterModal() {
           </button>
         </div>
       ) : (
-        /* 입력 폼 모달 */
+        // 입력 폼 모달 
         <form onSubmit={handleSubmit} className="mt-2 flex flex-col gap-4">
           <label className="flex flex-col gap-1.5 text-sm">
             <span className="font-medium text-zinc-700">차대번호 (VIN)</span>
