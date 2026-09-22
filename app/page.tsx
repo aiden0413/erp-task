@@ -35,7 +35,7 @@ export default function Home() {
     }, [hasTarget]);
 
     return (
-        <div className="w-full">
+        <div className="w-full select-none">
             <div
                 style={{
                     maxHeight: isAnimating ? "80px" : "0px",
