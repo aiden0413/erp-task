@@ -40,5 +40,9 @@
 
 * 사후 증빙 제출이 필요한 항목만 확인
 <img width="1222" height="337" alt="image" src="https://github.com/user-attachments/assets/8440b7fa-a1c2-4952-8a9d-abb61998e9d0" />
+<br><br>
+
+* 사후 세무 증빙 기한이 초과된 항목만 확인
+<img width="1225" height="333" alt="image" src="https://github.com/user-attachments/assets/335ae89d-a972-44bb-9280-b299a39d8358" />
 
 
