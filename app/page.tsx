@@ -10,12 +10,20 @@ import { useVehicleStore } from "@/app/store/useVehicleStore";
 
 export default function Home() {
     const vehicles = useVehicleStore((state) => state.vehicles);
+    const onlyTarget = useVehicleStore((state) => state.onlyTarget);
+    const setOnlyTarget = useVehicleStore((state) => state.setOnlyTarget);
     const hasTarget = vehicles.some((v) => {
         return (
             (v.postEvidenceDaysRemaining !== null && v.postEvidenceDaysRemaining <= 0) ||
             (v.postEvidenceDaysRemaining !== null && v.postEvidenceDaysRemaining > 0 && v.postEvidenceDaysRemaining <= 3)
         );
     });
+
+    useEffect(() => {
+        if (!hasTarget && onlyTarget) {
+            setOnlyTarget(false);
+        }
+    }, [hasTarget, onlyTarget, setOnlyTarget]);
 
     const [isRendered, setIsRendered] = useState(hasTarget);
     const [isAnimating, setIsAnimating] = useState(hasTarget);
